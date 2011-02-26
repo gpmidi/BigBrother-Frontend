@@ -51,6 +51,7 @@ class Bbdata(models.Model):
                                  )
     world = models.ForeignKey(
                               'Bbworlds',
+                              db_column = 'world',
                               verbose_name = "World",
                               help_text = "",
                               )
@@ -67,6 +68,7 @@ class Bbdata(models.Model):
                             verbose_name = "Z",
                             )
     type = models.ForeignKey(
+                               db_column = 'type',
                                'BlockType',
                                null = True,
                                blank = True,
