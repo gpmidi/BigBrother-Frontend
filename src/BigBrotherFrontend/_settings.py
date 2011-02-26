@@ -101,7 +101,6 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'dajaxice',
     'dajax',
-    #'djcelery',
     'bigbrother',
 )
 
@@ -114,35 +113,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
                             'django.contrib.messages.context_processors.messages',
                             )
 
-# Celery stuff
-#CELERY_RESULT_BACKEND = "amqp"
-#CELERY_CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
-#CELERY_RESULT_BACKEND = "cache"
-#TASK_RESULT_EXPIRES = 1 * 60 * 60
-#BROKER_HOST = "localhost"
-#BROKER_PORT = 5672
-#BROKER_USER = "someuser"
-#BROKER_PASSWORD = "somepassword"
-#BROKER_VHOST = "/"
-#AMQP_SERVER = "localhost"
-#AMQP_PORT = 5672
-#AMQP_USER = "someuser"
-#AMQP_PASSWORD = "somepassword"
-#AMQP_VHOST = "/"
-#CELERYD_CONCURRENCY = 4
-#CELERY_CREATE_MISSING_QUEUES = True
-#CELERY_DEFAULT_QUEUE = "default"
-#CELERY_DEFAULT_EXCHANGE = "default"
-#CELERY_DEFAULT_EXCHANGE_TYPE = "topic"
-#CELERY_DEFAULT_ROUTING_KEY = "task.default"
-#CELERY_DEFAULT_RATE_LIMIT = None
-#CELERY_DISABLE_RATE_LIMITS = True
-#CELERY_ROUTES = {
-##    "BigBrotherFrontend.bigbrother.tasks.": {
-##        "queue":"default",
-##        "routing_key":"task.something",
-##    },    
-#}
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 CACHE_BACKEND = 'memcached://127.0.0.1:11211'
