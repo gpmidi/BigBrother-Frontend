@@ -10,5 +10,7 @@ from django.conf.urls.defaults import *
 # admin.autodiscover()
 
 urlpatterns = patterns('BigBrotherFrontend.bigbrother.views',
+    (r'^raw(?:/)?$', 'raw.list'),
+    (r'^raw/(\d+)(?:/)?$', 'raw.view'),
     
 )

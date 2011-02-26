@@ -3,7 +3,7 @@ Created on Feb 26, 2011
 
 @author: gpmidi
 '''
-
+import datetime
 from django.db import models
 
 class Bbdata(models.Model):
@@ -84,6 +84,10 @@ class Bbdata(models.Model):
                                   )
     class Meta:
         db_table = u'bbdata'
+        
+    def getDate(self):
+        """ Return the dt as a datetime object """
+        return datetime.datetime.fromtimestamp(self.date)
 
 class Bbworlds(models.Model):
     id = models.IntegerField(primary_key = True)

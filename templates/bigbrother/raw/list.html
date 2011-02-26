@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load cache %}
+
+{% block title %}
+	{% cache 3600 bigbrotherrawlisttitle page.number page.paginator.num_pages %}
+		 All Raw Events - Page {{ page.number }} of {{ page.paginator.num_pages }}
+	{% endcache %}
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block body %}
+	{% cache 3600 bigbrotherrawlistbody page.number page.paginator.num_pages %}
+		<div class="pagination">
+		    <span class="step-links">
+		        {% if page.has_previous %}
+		            <a href="?page={{ page.previous_page_number }}">Previous</a>
+		        {% endif %}
+		
+		        <span class="current">
+		            Page {{ page.number }} of {{ page.paginator.num_pages }}
+		        </span>
+		
+		        {% if page.has_next %}
+		            <a href="?page={{ page.next_page_number }}">Mext</a>
+		        {% endif %}
+		    </span>
+		</div>
+		
+		<table>
+			<tr>
+				<td>ID</td>
+				<td>Date/Time</td>
+				<td>Player</td>
+				<td>Action</td>
+				<td>World</td>
+				<td>Cords</td>
+				<td>Block Type</td>
+				<td>Data</td>
+				<td>Backed Up</td>
+			</tr>
+			{% for link in page.object_list %}
+				<tr>
+					<td><a href="/bigbrother/raw/{{ link.pk }}/">{{ link.pk }}</a></td>
+					<td>{{ link.getDate }}</td>
+					<td>{{ link.player }}</td>
+					<td>{{ link.action }}</td>
+					<td>{{ link.world.name }}</td>
+					<td>{{ link.x }},{{ link.y }},{{ link.z }}</td>
+					<td>{{ link.type.name }}</td>
+					<td>{{ link.data }}</td>
+					<td>{{ link.rbacked|yesno }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+		
+		<div class="pagination">
+	    <span class="step-links">
+	        {% if page.has_previous %}
+	            <a href="?page={{ page.previous_page_number }}">Previous</a>
+	        {% endif %}
+	
+	        <span class="current">
+	            Page {{ page.number }} of {{ page.paginator.num_pages }}
+	        </span>
+	
+	        {% if page.has_next %}
+	            <a href="?page={{ page.next_page_number }}">Mext</a>
+	        {% endif %}
+	    </span>
+	</div>
+	{% endcache %}
+{% endblock %}
