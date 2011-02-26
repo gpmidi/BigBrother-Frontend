@@ -18,7 +18,7 @@ from django.views.decorators.cache import cache_page
 
 def list(req):
     """ Display a list of all known raw events """
-    p = Paginator(Bbdata.objects.all().order_by('pk'), 100)
+    p = Paginator(Bbdata.objects.all().order_by('-pk'), 100)
     try:
         page = int(req.GET.get('page', 1))
     except ValueError:
