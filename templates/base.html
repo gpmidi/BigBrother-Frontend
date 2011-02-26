@@ -1,0 +1,89 @@
+{% load dajaxice_templatetags %}{% load cache %}{% cache 86400 basexmlheader1 %}<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+	<head>
+		<title>{% endcache %}{% block title %}{% endblock %}{% cache 86400 basemetaheader1 user.username %}</title>
+		<link rel="stylesheet" type="text/css" href="/media/base.css" title="stylesheet"/>
+		<link href="/media/jqueryui/css/ui-lightness/jquery-ui-1.8.9.custom.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="/media/jquery-1.4.4.min.js"></script> 
+		<script src="/media/jqueryui/js/jquery-ui-1.8.9.custom.min.js" type="text/javascript" charset="utf-8"></script>
+		{% dajaxice_js_import %}
+		<script src="/media/jquery.dajax.core.js" type="text/javascript" charset="utf-8"></script>
+		{% endcache %}
+		{% block imports %}{% endblock %}
+		{% cache 86400 basesidebar7 user.username %}
+
+	</head>
+	<body>
+		<div class="wrap">
+		<div id="main">
+		<div class="leftColumn">
+			<ul class="nav">	
+				<li>Main</li>
+					<li>FIXME: Insert links </li>			
+			</ul>
+			<ul class="nav">
+				<li>My Account</li>
+					{% if user.is_authenticated %}
+							{% if user.is_staff %}
+								<li><a href="/admin/">Admin</a></li>
+							{% endif %}
+							<li><a href="/accounts/profile/">Edit Profile</a></li>		
+							<li><a href="/accounts/changepassword/">Change Password</a></li>			
+							<li><a href="/accounts/logout/">Logout</a></li>					
+					{% else %}						
+							<li><a href="/accounts/register/">Register</a></li>
+							<li class="alt"><a href="/password_reset/">Reset Password</a></li>
+					{% endif %}
+			</ul>		
+			{% if not user.is_authenticated %}
+				<script type="text/javascript" >
+					function send_sidebar_login() {
+						Dajaxice.BigBrotherFrontend.bigbrother.login_a(
+								'Dajax.process', {
+									'username':$('#sidebarUsername').val(),
+									'password':$('#sidebarPassword').val()
+									}
+								);
+					}
+				</script>
+				<ul id="loginForm" class="nav nohover">
+					<li>Sign In</li>
+					<li>
+						<form id="sidebarLoginForm" action="/accounts/login/" method="post">
+							{% csrf_token %}
+							<p id="loginfieldhelp"></p>
+							<label id="sidebarUsernameLabel" for="sidebarUsername">Username: </label><br />
+							<input type="text" name="Username" id="sidebarUsername"/><br />
+							<label id="sidebarPasswordLabel" for="sidebarPassword">Password: </label><br />
+							<input type="password" name="Password" id="sidebarPassword"/><br />
+							<input id="sidebarButton" name="submit" type="button" onclick="send_sidebar_login()" value="Login!" />
+						</form>
+				</ul>
+			{% endif %}
+					
+			<ul class="nav nohover">
+				<li>Search</li>
+					<li>
+						<form action="/search/" method="GET">
+							{{ searchform.term }}
+							<input type="submit" value="submit"/>
+						</form>	
+					</li>
+			</ul>
+			{% endcache %}
+
+					{% if messages %}
+						<ul class="messages">
+							{% for message in messages %}
+								<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+			<div class="rightColumn">			
+						{% block body %}{% endblock %}
+			</div>
+		</div>
+		</div>
+	</body>
+</html>
