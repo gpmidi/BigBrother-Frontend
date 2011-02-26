@@ -5,6 +5,7 @@ Created on Feb 26, 2011
 '''
 from BigBrotherFrontend.bigbrother.models import *
 
+from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.db.models import Q
@@ -16,6 +17,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.views.decorators.cache import cache_page
 
+@permission_required('Bbdata.can_view_full')
 def list(req):
     """ Display a list of all known raw events """
     p = Paginator(Bbdata.objects.all().order_by('-pk'), 100)
@@ -34,7 +36,8 @@ def list(req):
                                     ),
                               context_instance = RequestContext(req),
                               )
-    
+
+@permission_required('Bbdata.can_view_full')
 def view(req, data_id):
     """ Display a raw event """
     data = get_object_or_404(Bbdata, pk = data_id)

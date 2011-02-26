@@ -4,7 +4,14 @@ Created on Feb 26, 2011
 @author: gpmidi
 '''
 import datetime
+
 from django.db import models
+from django.db.models import Avg, Sum, Count
+from django.contrib.auth.models import User, Group
+from django.contrib.sessions.models import Session
+from django.contrib.sites.models import Site
+from django.contrib import admin
+from django.db.models import Q
 
 class Bbdata(models.Model):
     id = models.IntegerField(
@@ -86,6 +93,9 @@ class Bbdata(models.Model):
                                   )
     class Meta:
         db_table = u'bbdata'
+        permissions = (
+                       ("can_view_full", "Can see everything"),
+                       )
         
     def getDate(self):
         """ Return the dt as a datetime object """
@@ -110,3 +120,10 @@ class BlockType(models.Model):
                             )
     class Meta:
         db_table = u'items'
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(
+                             'User',
+                             primary_key = True,
+                             unique = True,
+                             )
