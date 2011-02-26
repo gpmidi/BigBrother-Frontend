@@ -68,8 +68,8 @@ class Bbdata(models.Model):
                             verbose_name = "Z",
                             )
     type = models.ForeignKey(
-                               db_column = 'type',
                                'BlockType',
+                               db_column = 'type',
                                null = True,
                                blank = True,
                                verbose_name = "Block Type",
